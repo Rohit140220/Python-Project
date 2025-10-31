@@ -48,7 +48,7 @@ env_features = ["precipitation", "temperature", "slope_angle"]
 for feature in env_features:
     if feature not in df.columns:
         df[feature] = np.random.normal(loc=50, scale=10, size=len(df))
-        print(f"⚠️ Added dummy column for missing: {feature}")
+        print(f" Added dummy column for missing: {feature}")
     plt.figure()
     sns.histplot(df[feature].dropna(), kde=True, color='teal')
     plt.title(f"3. Distribution of {feature}")
@@ -61,10 +61,10 @@ for feature in env_features:
 # 4. Human Activity Influence
 if "population_density" not in df.columns:
     df["population_density"] = np.random.randint(100, 1000, size=len(df))
-    print("⚠️ Added dummy column for missing: population_density")
+    print(" Added dummy column for missing: population_density")
 if "landslide_category" not in df.columns:
     df["landslide_category"] = np.random.choice(["Low", "Medium", "High"], size=len(df))
-    print("⚠️ Added dummy column for missing: landslide_category")
+    print(" Added dummy column for missing: landslide_category")
 
 plt.figure()
 sns.boxplot(data=df, x="landslide_category", y="population_density", palette="flare")
@@ -76,7 +76,7 @@ auto_pause()
 # 5. Landslide Types
 if "landslide_type" not in df.columns:
     df["landslide_type"] = np.random.choice(["Rockfall", "Mudslide", "Debris Flow"], size=len(df))
-    print("⚠️ Added dummy column for missing: landslide_type")
+    print(" Added dummy column for missing: landslide_type")
 
 plt.figure()
 sns.countplot(data=df, x="landslide_type", palette="Set2", order=df["landslide_type"].value_counts().index)
@@ -89,7 +89,7 @@ auto_pause()
 # 6. Top Locations - Lollipop Chart
 if "location" not in df.columns:
     df["location"] = np.random.choice(["Area A", "Area B", "Area C", "Area D"], size=len(df))
-    print("⚠️ Added dummy column for missing: location")
+    print(" Added dummy column for missing: location")
 
 top_locs = df["location"].value_counts().nlargest(10)
 plt.figure()
@@ -132,7 +132,7 @@ outlier_cols = ["fatalities", "injuries", "economic_loss"]
 for col in outlier_cols:
     if col not in df.columns:
         df[col] = np.random.randint(0, 50, size=len(df))
-        print(f"⚠️ Added dummy column for missing: {col}")
+        print(f" Added dummy column for missing: {col}")
     outliers = detect_outliers_iqr(df, col)
     plt.figure()
     sns.boxplot(data=df, y=col, color="orange")
@@ -142,4 +142,4 @@ for col in outlier_cols:
     print(f"Outliers in {col}: {len(outliers)} rows")
     auto_pause()
 
-print("✅ All 9 charts shown — with fallback data where needed.")
+print(" All 9 charts shown — with fallback data where needed.")
